@@ -58,6 +58,14 @@ class _RenderExclusiveMouseRegion extends RenderMouseRegion {
   static bool foundInnermostMouseRegion = false;
 
   @override
+  void handleEvent(PointerEvent event, HitTestEntry entry) {
+    // Only handle hover-related events, ignore scroll events
+    if (event is PointerHoverEvent || event is PointerExitEvent) {
+      super.handleEvent(event, entry);
+    }
+  }
+
+  @override
   bool hitTest(BoxHitTestResult result, {required Offset position}) {
     bool isHit = false;
     final bool outermost = isOutermostMouseRegion;
